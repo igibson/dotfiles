@@ -194,10 +194,10 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+-- vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+-- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+-- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Custom keymaps
 --move lines in visual mode
@@ -211,6 +211,29 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 --keep cursor in middle when searching
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
+--delete into unamed
+vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
+vim.keymap.set({ 'n', 'v' }, '<leader>p', '"0p')
+--source control
+vim.keymap.set('n', '<leader>sca', ':Vp4Add <cr>', { desc = 'Perforce add to source control' })
+vim.keymap.set('n', '<leader>sce', ':Vp4Edit <cr>', { desc = 'Perforce open for edit in source control' })
+vim.keymap.set('n', '<leader>scc', ':Vp4Change <cr>', {
+  desc = 'Opens the change specification in a new split. Equivalent to p4 change -o if current file is not already opened in a changelist and p4 change -o -c {cl} if already opened in a changelist. Use the write :w command to make the change, quit :q to abort.',
+})
+vim.keymap.set(
+  'n',
+  '<leader>scd',
+  ':Vp4Diff <cr>',
+  { desc = 'Move the current file to a different changelist. Lists all open changelists and prompts for a selection.' }
+)
+vim.keymap.set(
+  'n',
+  '<leader>scr',
+  ':Vp4Reopen <cr>',
+  { desc = 'Move the current file to a different changelist. Lists all open changelists and prompts for a selection.' }
+)
+vim.keymap.set('n', '<leader>scz', ':Vp4Annotate <cr>', { desc = 'Perforce open for edit in source control' })
+
 --share system clipboard
 --vim.keymap.set('n', '<leader>y', '"+y')
 --vim.keymap.set('v', '<leader>y', '"+y')
@@ -375,10 +398,23 @@ require('lazy').setup({
   --  This is equivalent to:
   --    require('Comment').setup({})
   {
+    'kwkarlwang/bufjump.nvim',
+    config = function()
+      require('bufjump').setup {
+        forward_key = '<Tab>',
+        backward_key = '<S-Tab>',
+      }
+    end,
+  },
+  {
     'Issafalcon/lsp-overloads.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
     end,
+  },
+  {
+    'RobertCWebb/vim-jumpmethod',
+    config = function() end,
   },
   {
     'tpope/vim-dadbod',
@@ -413,6 +449,29 @@ require('lazy').setup({
     config = function()
       vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
     end,
+  },
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = { { 'echasnovski/mini.icons', opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    event = 'BufReadPre',
+    keys = {
+      {
+        '[c',
+        function()
+          require('treesitter-context').go_to_context()
+        end,
+      },
+    },
+    opts = {},
+    -- Optional dependencies
+    -- dependencies = { { 'echasnovski/mini.icons', opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   },
   --{ 'Hoffs/omnisharp-extended-lsp', config = function() end },
   -- "gc" to comment visual regions/lines
