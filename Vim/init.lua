@@ -97,7 +97,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -208,11 +208,15 @@ vim.keymap.set('n', 'J', 'mzJ`z')
 --half page jumps keep cursor centered
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
+--add relative jumps to the jumplist
+vim.keymap.set('n', 'k', [[(v:count > 1 ? "m'" . v:count : "g") . 'k']], { expr = true })
+vim.keymap.set('n', 'j', [[(v:count > 1 ? "m'" . v:count : "g") . 'j']], { expr = true })
 --keep cursor in middle when searching
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 --delete into unamed
 vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
+--paste from last yanked
 vim.keymap.set({ 'n', 'v' }, '<leader>p', '"0p')
 --source control
 vim.keymap.set('n', '<leader>sca', ':Vp4Add <cr>', { desc = 'Perforce add to source control' })
@@ -401,8 +405,8 @@ require('lazy').setup({
     'kwkarlwang/bufjump.nvim',
     config = function()
       require('bufjump').setup {
-        forward_key = '<Tab>',
-        backward_key = '<S-Tab>',
+        forward_key = 'í',
+        backward_key = 'ó',
       }
     end,
   },
@@ -473,6 +477,35 @@ require('lazy').setup({
     -- dependencies = { { 'echasnovski/mini.icons', opts = {} } },
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   },
+  -- {
+  --   'junegunn/fzf.vim',
+  --   -- optional for icon support
+  --   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  --   config = function()
+  --     -- calling `setup` is optional for customization
+  --     require('fzf-lua').setup {}
+  --   end,
+  -- },
+  -- {
+  --   'ibhagwan/fzf-lua',
+  --   -- optional for icon support
+  --   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  --   config = function()
+  --     -- calling `setup` is optional for customization
+  --     require('fzf-lua').setup {}
+  --   end,
+  -- },
+  -- {
+  --   'camspiers/snap',
+  --   config = function()
+  --     -- Basic example config
+  --     local snap = require 'snap'
+  --     snap.maps {
+  --       { '<Leader>sj', snap.config.file { producer = 'ripgrep.file' } },
+  --       { '<Leader>sz', snap.config.vimgrep {} },
+  --     }
+  --   end,
+  -- },
   --{ 'Hoffs/omnisharp-extended-lsp', config = function() end },
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
@@ -967,7 +1000,23 @@ require('lazy').setup({
       --  - va)  - [V]isually select [A]round [)]paren
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --  - ci'  - [C]hange [I]nside [']quote
-      require('mini.ai').setup { n_lines = 500 }
+      local gen_spec = require('mini.ai').gen_spec
+      require('mini.ai').setup {
+        custom_textobjects = {
+          -- Tweak argument to be recognized only inside `()` between `;`
+          -- a = gen_spec.argument { brackets = { '%b()' }, separator = ';' },
+
+          -- Tweak function call to not detect dot in function name
+          -- f = gen_spec.function_call { name_pattern = '[%w_]' },
+
+          -- Function definition (needs treesitter queries with these captures)
+          F = gen_spec.treesitter { a = '@function.outer', i = '@function.inner' },
+          k = gen_spec.treesitter { a = '@assignment.outer', i = '@assignment.lhs' },
+
+          -- Make `|` select both edges in non-balanced way
+          -- ['|'] = gen_spec.pair('|', '|', { type = 'non-balanced' }),
+        },
+      }
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
@@ -1010,6 +1059,15 @@ require('lazy').setup({
         additional_vim_regex_highlighting = { 'ruby' },
       },
       indent = { enable = true, disable = { 'ruby' } },
+      textobjects = {
+        move = {
+          enable = true,
+          goto_next_start = { [']f'] = '@function.outer', [']c'] = '@class.outer', [']a'] = '@parameter.inner' },
+          goto_next_end = { [']F'] = '@function.outer', [']C'] = '@class.outer', [']A'] = '@parameter.inner' },
+          goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer', ['[a'] = '@parameter.inner' },
+          goto_previous_end = { ['[F'] = '@function.outer', ['[C'] = '@class.outer', ['[A'] = '@parameter.inner' },
+        },
+      },
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
@@ -1026,6 +1084,9 @@ require('lazy').setup({
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
