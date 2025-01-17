@@ -214,6 +214,9 @@ vim.keymap.set('n', 'j', [[(v:count > 1 ? "m'" . v:count : "g") . 'j']], { expr 
 --keep cursor in middle when searching
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
+--quick fix and center screen
+vim.keymap.set('n', '<C-j>', '<cmd>cnext<CR>zz')
+vim.keymap.set('n', '<C-k>', '<cmd>cprev<CR>zz')
 --delete into unamed
 vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
 --paste from last yanked
@@ -476,6 +479,13 @@ require('lazy').setup({
     -- Optional dependencies
     -- dependencies = { { 'echasnovski/mini.icons', opts = {} } },
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+  },
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = true,
+    -- use opts = {} for passing setup options
+    -- this is equivalent to setup({}) function
   },
   -- {
   --   'junegunn/fzf.vim',
