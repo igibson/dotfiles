@@ -1,0 +1,63 @@
+set clipboard+=unnamedplus
+let mapleader = " "
+set number                     " Show current line number
+set relativenumber             " Show relative line numbers
+set ignorecase
+set smartcase
+set incsearch
+
+map <leader>e vip<Action>(Console.Jdbc.Execute)<Esc>$
+
+"nnoremap <Space>d "_d
+"vnoremap <Space>d "_d
+
+"nnoremap <Space>p "0p
+nnoremap d "_d
+nnoremap c "_c
+nnoremap cc "_cc
+nnoremap x "_x
+nnoremap D d
+nnoremap C c
+nnoremap X diw
+nnoremap <Del> "_diw
+nnoremap <S-Del> diw
+vnoremap <Del> "_diw
+vnoremap <S-Del> diw
+nnoremap <BS> "_ciw
+nnoremap <S-BS> ciw
+vnoremap <BS> "_ciw
+vnoremap <S-BS> ciw
+
+vnoremap p P
+vnoremap P p
+
+"vnoremap <Space>p "0P
+"vnoremap <Space>P "_d"0P
+
+nnoremap s "_ciw<C-r>"<Esc>
+nnoremap S "ciw<C-r>"<Esc>
+vnoremap s "_dP
+
+nnoremap ss <Nop>
+
+nmap <Space>gy "+y
+vmap <Space>gy "+y
+
+nmap <Space>gp "+p
+vmap <Space>gp "+p
+
+Plug 'vim-scripts/argtextobj.vim
+Plug 'tpope/vim-commentary'
+Plug 'easymotion/vim-easymotion'
+Plug 'machakann/vim-highlightedyank'
+Plug 'vim-matchit'
+set mini-ai
+Plug 'unblevable/quick-scope'
+"nmap \ <Plug>(easymotion-prefix)
+
+"nnoremap x "_x
+"nnoremap cc "_cc
+
+"nmap <BS> ciw
+"nmap <Del> "_diw
+"vmap <Del> "_diw
