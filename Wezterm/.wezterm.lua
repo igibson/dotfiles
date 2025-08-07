@@ -1,8 +1,33 @@
 local wezterm = require("wezterm")
 local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
--- This will hold the configuration.
+
 local config = wezterm.config_builder()
 
+config.keys = {
+	--redirect shift tab in neovim to F13 so can use next and prev buffer keymap with
+	--tab and tab shift. Tab-Shift maps to ctrl+i in terminal
+	{
+		key = "i",
+		mods = "CTRL",
+		action = wezterm.action.SendKey({ key = "F13" }),
+	},
+	{
+		key = "Enter",
+		mods = "CTRL",
+		action = wezterm.action.SendKey({ key = "Enter", mods = "CTRL" }),
+	},
+	-- Ensure Shift+Enter works too
+	{
+		key = "Enter",
+		mods = "SHIFT",
+		action = wezterm.action.SendKey({ key = "Enter", mods = "SHIFT" }),
+	},
+	{
+		key = " ",
+		mods = "CTRL",
+		action = wezterm.action.SendKey({ key = " ", mods = "CTRL" }),
+	},
+}
 -- This is where you actually apply your config choices
 config.window_decorations = "NONE | RESIZE"
 -- For example, changing the color scheme:
@@ -31,9 +56,14 @@ config.default_prog = { "pwsh.exe", "-NoLogo" }
 config.max_fps = 200
 config.default_workspace = "main"
 config.window_padding = { left = "1cell", right = "1cell", top = 0, bottom = 0 }
-config.font_size = 12
--- config.font_size = 12
+--config.font = wezterm.font("FiraCode Nerd Font")
+config.font_size = 11
 
+-- config.font = wezterm.font("JetBrains Mono", { weight = "Medium" })
+-- config.font_size = 11.25
+-- config.freetype_load_target = "HorizontalLcd"
+-- config.freetype_render_target = "HorizontalLcd"
+-- config.font_size = 12
 -- config.enable_tab_bar = false
 -- and finally, return the configuration to wezterm
 bar.apply_to_config(config)
