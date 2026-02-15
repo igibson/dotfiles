@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aka.ms/winget-packages.schema.2.0.json",
+  "CreationDate": "2026-02-15T12:00:00.000-00:00",
+  "Sources": [
+    {
+      "Packages": [
+        { "PackageIdentifier": "Git.Git" },
+        { "PackageIdentifier": "Microsoft.PowerShell" },
+        { "PackageIdentifier": "Docker.DockerDesktop" },
+        { "PackageIdentifier": "Starship.Starship" },
+        { "PackageIdentifier": "7zip.7zip" },
+        { "PackageIdentifier": "Rustlang.Rustup" },
+        { "PackageIdentifier": "glzr-io.glazewm" },
+        { "PackageIdentifier": "Flow-Launcher.Flow-Launcher" }
+      ],
+
+      "SourceDetails" : 
+      {
+        "Argument" : "https://cdn.winget.microsoft.com/cache",
+        "Identifier" : "Microsoft.Winget.Source_8wekyb3d8bbwe",
+        "Name" : "winget",
+        "Type" : "Microsoft.PreIndexed.Package"
+      }
+    }
+  ]
+}

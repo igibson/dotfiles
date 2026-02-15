@@ -1,0 +1,8 @@
+neovim
+wezterm
+ripgrep
+fd
+fzf
+jq
+gh
+tree-sitter
