@@ -1,0 +1,50 @@
+import pandas as pd
+from visidata import vd, PandasSheet, SequenceSheet, ColumnItem
+
+@vd.api
+def open_xlsx(vd, p):
+    # 1. Use Calamine to get sheet names
+    excel_file = pd.ExcelFile(p, engine="calamine")
+    sheet_names = excel_file.sheet_names
+
+    # 2. Single-sheet: Open directly
+    if len(sheet_names) == 1:
+        df = pd.read_excel(p, sheet_name=sheet_names[0], engine="calamine")
+        return PandasSheet(sheet_names[0], source=df)
+
+    # 3. Multi-sheet: Create the Index Sheet
+    index_vs = SequenceSheet(p.name, source=p)
+    index_vs.rows = [[name] for name in sheet_names]
+    index_vs.addColumn(ColumnItem("sheet_name", 0))
+
+    # 4. The "Universal" signature for v3.3 openRow
+    # 'self' is the sheet, 'row' is the data, '*args' catches rowidx
+    def load_sheet(self, row, *args, **kwargs):
+        if not row:
+            return
+        sheet_name = row[0]
+        vd.status(f"Loading {sheet_name} via Calamine...")
+        
+        # We use str(p) to ensure the path is a clean string for pandas
+        df = pd.read_excel(str(p), sheet_name=sheet_name, engine="calamine")
+        vd.push(PandasSheet(sheet_name, source=df))
+
+    # 5. Attach it as a bound method
+    index_vs.openRow = load_sheet.__get__(index_vs)
+
+    return index_vs
+
+#raise RuntimeError("VISIDATARC LOADED")
+#from visidata import options
+#options.xlsx_color_cells = False
+#options.xlsx_meta_columns = False
+# import pandas as pd
+# from visidata import VisiData, PandasSheet
+#
+# @VisiData.api
+# def open_xlsx_calamine(vd, p):
+#     return PandasSheet(
+#         p.base_stem,
+#         source=p,
+#         read_func=lambda path: pd.read_excel(path, engine="calamine"),
+#     )
