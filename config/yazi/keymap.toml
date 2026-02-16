@@ -1,0 +1,91 @@
+[[mgr.prepend_keymap]]
+on = ["m", "c"]
+run = "linemode size_and_mtime"
+desc = "Linemode - Size and modified time"
+
+
+[[mgr.prepend_keymap]]
+on = [ "1" ]
+run = "plugin relative-motions 1"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = [ "2" ]
+run = "plugin relative-motions 2"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = [ "3" ]
+run = "plugin relative-motions 3"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = [ "4" ]
+run = "plugin relative-motions 4"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = [ "5" ]
+run = "plugin relative-motions 5"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = [ "6" ]
+run = "plugin relative-motions 6"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = [ "7" ]
+run = "plugin relative-motions 7"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = [ "8" ]
+run = "plugin relative-motions 8"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = [ "9" ]
+run = "plugin relative-motions 9"
+desc = "Move in relative steps"
+
+
+[[mgr.prepend_keymap]]
+on  = ["g", "d"]
+run = "cd c:/dev/main/Components/CoreLibraries/"
+desc = "Dev - Core Libraries"
+
+[[mgr.prepend_keymap]]
+on  = ["g", "D"]
+run = "cd ~/Downloads"
+
+[[mgr.prepend_keymap]]
+on  = ["g", "o"]
+run = 'cd "c:/Users/ian.gibson/OneDrive - cairncapital.com"'
+desc = "One Driver - User"
+
+[[mgr.prepend_keymap]]
+on  = ["g", "a", "l"]
+run = "cd ~/AppData/Local/"
+desc = "App Data - Local"
+
+[[mgr.prepend_keymap]]
+on  = ["g", "a", "r"]
+run = "cd ~/AppData/Roaming/"
+desc = "App Data - Roaming"
+
+[[mgr.prepend_keymap]]
+on  = ["g", "r", "t"]
+run = "cd //cairndepot/tradefiles"
+desc = "Remote - Trade Files"
+
+[[mgr.prepend_keymap]]
+on  = ["g", "r", "e"]
+run = "cd //cairndepot/externaldata"
+desc = "Remote - External Data"
+
+[[mgr.prepend_keymap]]
+on  = ["g", "t"]
+run = "cd c:/temp"
+desc = "Temp"
+
