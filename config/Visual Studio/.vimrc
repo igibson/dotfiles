@@ -31,51 +31,51 @@ set incsearch
 :nnoremap ya\" "+ya"
 :nnoremap ya\' "+ya'
 
-:nnoremap dd "_dd
-:nnoremap dw "_dw
-:nnoremap diw "_diw
-:nnoremap daw "_daw
-:nnoremap das "_das
-:nnoremap dib "_dib
-:nnoremap dab "_dab
-:nnoremap da{ "_da{
-:nnoremap di{ "_di{
-:nnoremap da( "_da(
-:nnoremap di( "_di(
-
-:nnoremap Dd "+dd
-:nnoremap Dw "+dw
-:nnoremap Diw "+diw
-:nnoremap Daw "+daw
-:nnoremap Das "+das
-:nnoremap Dib "+dib
-:nnoremap Dab "+dab
-:nnoremap Da{ "+da{
-:nnoremap Di{ "+di{
-:nnoremap Da( "+da(
-:nnoremap Di( "+di(
-
-:nnoremap cw "_cw
-:nnoremap ciw "_ciw
-:nnoremap caw "_caw
-:nnoremap cas "_cas
-:nnoremap cib "_cib
-:nnoremap cab "_cab
-:nnoremap ca{ "_ca{
-:nnoremap ci{ "_ci{
-:nnoremap ca( "_ca(
-:nnoremap ci( "_ci(
-
-:nnoremap Cw "+cw
-:nnoremap Ciw "+ciw
-:nnoremap Caw "+caw
-:nnoremap Cas "+cas
-:nnoremap Cib "+cib
-:nnoremap Cab "+cab
-:nnoremap Ca{ "+ca{
-:nnoremap Ci{ "+ci{
-:nnoremap Ca( "+ca(
-:nnoremap Ci( "+ci(
+":nnoremap dd "_dd
+":nnoremap dw "_dw
+":nnoremap diw "_diw
+":nnoremap daw "_daw
+":nnoremap das "_das
+":nnoremap dib "_dib
+":nnoremap dab "_dab
+":nnoremap da{ "_da{
+":nnoremap di{ "_di{
+":nnoremap da( "_da(
+":nnoremap di( "_di(
+"
+":nnoremap Dd "+dd
+":nnoremap Dw "+dw
+":nnoremap Diw "+diw
+":nnoremap Daw "+daw
+":nnoremap Das "+das
+":nnoremap Dib "+dib
+":nnoremap Dab "+dab
+":nnoremap Da{ "+da{
+":nnoremap Di{ "+di{
+":nnoremap Da( "+da(
+":nnoremap Di( "+di(
+"
+":nnoremap cw "_cw
+":nnoremap ciw "_ciw
+":nnoremap caw "_caw
+":nnoremap cas "_cas
+":nnoremap cib "_cib
+":nnoremap cab "_cab
+":nnoremap ca{ "_ca{
+":nnoremap ci{ "_ci{
+":nnoremap ca( "_ca(
+":nnoremap ci( "_ci(
+"
+":nnoremap Cw "+cw
+":nnoremap Ciw "+ciw
+":nnoremap Caw "+caw
+":nnoremap Cas "+cas
+":nnoremap Cib "+cib
+":nnoremap Cab "+cab
+":nnoremap Ca{ "+ca{
+":nnoremap Ci{ "+ci{
+":nnoremap Ca( "+ca(
+":nnoremap Ci( "+ci(
 ":nnoremap <Space>d "_d
 ":vnoremap <Space>d "_d
 
