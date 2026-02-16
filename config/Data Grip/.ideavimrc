@@ -7,18 +7,18 @@ set smartcase
 set incsearch
 
 map <leader>e vip<Action>(Console.Jdbc.Execute)<Esc>$
-
+map <leader>ds vip<Action>(Console.Jdbc.ChooseDataSource)<Esc>$
 "nnoremap <Space>d "_d
 "vnoremap <Space>d "_d
 
 "nnoremap <Space>p "0p
-nnoremap d "_d
-nnoremap c "_c
+"nnoremap d "_d
+"nnoremap c "_c
 nnoremap cc "_cc
-nnoremap x "_x
-nnoremap D d
-nnoremap C c
-nnoremap X diw
+"nnoremap x "_x
+"nnoremap D d
+"nnoremap C c
+"nnoremap X diw
 nnoremap <Del> "_diw
 nnoremap <S-Del> diw
 vnoremap <Del> "_diw
@@ -52,7 +52,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'machakann/vim-highlightedyank'
 Plug 'vim-matchit'
 set mini-ai
-Plug 'unblevable/quick-scope'
+"Plug 'unblevable/quick-scope'
 "nmap \ <Plug>(easymotion-prefix)
 
 "nnoremap x "_x
