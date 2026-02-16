@@ -1,0 +1,27 @@
+[[plugin.deps]]
+use = "dawsers/dual-pane"
+rev = "c2fed12"
+hash = ""
+
+[[plugin.deps]]
+use = "dedukun/relative-motions"
+rev = "a603d9e"
+hash = "4841d0db6a2380a16fd8c647fc1d1187"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "de53d90"
+hash = "b16b6e08085a3dfec72335415e4c83ed"
+
+[[plugin.deps]]
+use = "stelcodes/bunny"
+rev = "bd8a767"
+hash = "e59f3bfbf9d3f7472856e2c2e1f0be84"
+
+[[plugin.deps]]
+use = "WhoSowSee/whoosh"
+rev = "49dd966"
+hash = "bd7ce0df9afcf2650ec6fd4ac54c9021"
+
+[flavor]
+deps = []
