@@ -1,0 +1,5 @@
+[wezterm.files]
+"config/wezterm/wezterm.lua" = "~/.config/wezterm/wezterm.lua"
+
+[neovim.files]
+"config/nvim" = "~/.config/nvim"

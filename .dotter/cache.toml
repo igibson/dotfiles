@@ -1,0 +1,12 @@
+[symlinks]
+"config/GlazeWM/config.yaml" = "C:\\Users\\gibbe/.glzr/glazewm/config.yaml"
+"config/nvim\\init.lua" = "C:\\Users\\gibbe/AppData/Local/nvim\\init.lua"
+"config/nvim\\lua\\commands.lua" = "C:\\Users\\gibbe/AppData/Local/nvim\\lua\\commands.lua"
+"config/nvim\\lua\\keymaps.lua" = "C:\\Users\\gibbe/AppData/Local/nvim\\lua\\keymaps.lua"
+"config/nvim\\lua\\local\\newline\\init.lua" = "C:\\Users\\gibbe/AppData/Local/nvim\\lua\\local\\newline\\init.lua"
+"config/nvim\\lua\\options.lua" = "C:\\Users\\gibbe/AppData/Local/nvim\\lua\\options.lua"
+"config/nvim\\lua\\plugins\\lsp.lua" = "C:\\Users\\gibbe/AppData/Local/nvim\\lua\\plugins\\lsp.lua"
+"config/nvim\\lua\\plugins\\plugins.lua" = "C:\\Users\\gibbe/AppData/Local/nvim\\lua\\plugins\\plugins.lua"
+"config/wezterm/wezterm.lua" = "C:\\Users\\gibbe/.config/wezterm/wezterm.lua"
+
+[templates]

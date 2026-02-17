@@ -1,0 +1,5 @@
+[neovim.files]
+"config/nvim" = "~/AppData/Local/nvim"
+
+[glazewm.files]
+"config/GlazeWM/config.yaml" = "~/.glzr/glazewm/config.yaml"
