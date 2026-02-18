@@ -1,5 +1,7 @@
 [symlinks]
+"config/Data Grip/.ideavimrc" = "C:\\Users\\gibbe/.ideavimrc"
 "config/GlazeWM/config.yaml" = "C:\\Users\\gibbe/.glzr/glazewm/config.yaml"
+"config/Visual Studio/.vimrc" = "C:\\Users\\gibbe/.vimrc"
 "config/nvim\\init.lua" = "C:\\Users\\gibbe/AppData/Local/nvim\\init.lua"
 "config/nvim\\lua\\commands.lua" = "C:\\Users\\gibbe/AppData/Local/nvim\\lua\\commands.lua"
 "config/nvim\\lua\\keymaps.lua" = "C:\\Users\\gibbe/AppData/Local/nvim\\lua\\keymaps.lua"

@@ -3,3 +3,9 @@
 
 [glazewm.files]
 "config/GlazeWM/config.yaml" = "~/.glzr/glazewm/config.yaml"
+
+[datagrip.files]
+"config/Data Grip/.ideavimrc" = "~/.ideavimrc"
+
+[visualstudio.files]
+"config/Visual Studio/.vimrc" = "~/.vimrc"
