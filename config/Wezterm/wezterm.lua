@@ -183,7 +183,7 @@ config.color_scheme = "Tokyo Night"
 config.default_prog = { "pwsh.exe", "-NoLogo" }
 config.animation_fps = 1
 config.max_fps = 120
-config.front_end = "WebGpu" -- or "OpenGL" "WebGpu"
+config.front_end = "OpenGL" -- or "OpenGL" "WebGpu"
 -- config.use_ime = false
 config.default_workspace = "main"
 config.window_padding = { left = "1cell", right = "1cell", top = 0, bottom = 0 }
@@ -263,7 +263,7 @@ config.font = wezterm.font("JetBrains Mono", {
 -- config.font = wezterm.font("JetBrains Mono", { weight = "Regular", stretch = "Normal", style = "Normal" })
 config.font_size = 10
 config.freetype_load_flags = "NO_HINTING"
-config.freetype_load_target = "Normal"
+-- config.freetype_load_target = "Normal"
 -- config.custom_block_glyphs = true
 -- config.freetype_load_target = "Light"
 -- config.freetype_load_target = "HorizontalLcd"
