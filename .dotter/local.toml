@@ -1,2 +1,2 @@
 includes = [".dotter/windows.toml"]
-packages = ["wezterm", "neovim", "glazewm", "datagrip", "visualstudio"]
+packages = ["wezterm", "yazi", "neovim", "glazewm", "datagrip", "visualstudio"]

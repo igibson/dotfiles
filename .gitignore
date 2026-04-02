@@ -1,0 +1,9 @@
+.dotter/cache.toml
+cache/
+#.dotter/local.toml
+
+# General Windows/App noise
+Thumbs.db
+.DS_Store
+*.tmp
+/cache

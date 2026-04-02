@@ -1,6 +1,12 @@
 [neovim.files]
 "config/nvim" = "~/AppData/Local/nvim"
 
+[yazi.files]
+"config/yazi/init.lua" = "~/AppData/Roaming/yazi/config/init.lua"
+"config/yazi/keymap.toml" = "~/AppData/Roaming/yazi/config/keymap.toml"
+"config/yazi/package.toml" = "~/AppData/Roaming/yazi/config/package.toml"
+"config/yazi/yazi.toml" = "~/AppData/Roaming/yazi/config/yazi.toml"
+
 [glazewm.files]
 "config/GlazeWM/config.yaml" = "~/.glzr/glazewm/config.yaml"
 
