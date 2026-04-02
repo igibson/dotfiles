@@ -1,34 +1,38 @@
-return
-{
+return {
   -- INFO: Editor
-  { 'tpope/vim-sleuth' }, -- Detect tabstop and shiftwidth automatically
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  { "tpope/vim-sleuth" }, -- Detect tabstop and shiftwidth automatically
+  {
+    "folke/todo-comments.nvim",
+    event = "VimEnter",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = { signs = false },
+  },
   -- INFO: Quality of Life
   {
-    'windwp/nvim-autopairs',
-    event = 'InsertEnter',
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
     config = true,
   },
   {
-    'kwkarlwang/bufjump.nvim',
+    "kwkarlwang/bufjump.nvim",
     config = function()
-      require('bufjump').setup {
-        forward_key = '<Tab>',
-        backward_key = '<s-Tab>',
-      }
+      require("bufjump").setup({
+        forward_key = "<Tab>",
+        backward_key = "<s-Tab>",
+      })
     end,
   },
   {
-    'stevearc/conform.nvim',
+    "stevearc/conform.nvim",
     lazy = false,
     keys = {
       {
-        '<leader>f',
+        "<leader>f",
         function()
-          require('conform').format { async = true, lsp_fallback = true }
+          require("conform").format({ async = true, lsp_fallback = true })
         end,
-        mode = '',
-        desc = '[F]ormat buffer',
+        mode = "",
+        desc = "[F]ormat buffer",
       },
     },
     opts = {
@@ -41,7 +45,7 @@ return
         }
       end,
       formatters_by_ft = {
-        lua = { 'stylua' },
+        lua = { "stylua" },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -49,11 +53,16 @@ return
         -- is found.
         -- javascript = { { "prettierd", "prettier" } },
       },
+      formatters = {
+        stylua = {
+          prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" },
+        },
+      },
     },
   },
-  -- INFO: mini 
+  -- INFO: mini
   { -- Collection of various small independent plugins/modules
-    'echasnovski/mini.nvim',
+    "echasnovski/mini.nvim",
     config = function()
       -- Better Around/Inside textobjects
       --
@@ -61,8 +70,8 @@ return
       --  - va)  - [V]isually select [A]round [)]paren
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --  - ci'  - [C]hange [I]nside [']quote
-      local gen_spec = require('mini.ai').gen_spec
-      require('mini.ai').setup {
+      local gen_spec = require("mini.ai").gen_spec
+      require("mini.ai").setup({
         custom_textobjects = {
           -- Tweak argument to be recognized only inside `()` between `;`
           -- a = gen_spec.argument { brackets = { '%b()' }, separator = ';' },
@@ -71,13 +80,13 @@ return
           -- f = gen_spec.function_call { name_pattern = '[%w_]' },
 
           -- Function definition (needs treesitter queries with these captures)
-          F = gen_spec.treesitter { a = '@function.outer', i = '@function.inner' },
-          k = gen_spec.treesitter { a = '@assignment.outer', i = '@assignment.lhs' },
+          F = gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+          k = gen_spec.treesitter({ a = "@assignment.outer", i = "@assignment.lhs" }),
 
           -- Make `|` select both edges in non-balanced way
           -- ['|'] = gen_spec.pair('|', '|', { type = 'non-balanced' }),
         },
-      }
+      })
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
@@ -90,74 +99,83 @@ return
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
+      local statusline = require("mini.statusline")
       -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
+      statusline.setup({ use_icons = vim.g.have_nerd_font })
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
       statusline.section_location = function()
-        return '%2l:%-2v'
+        return "%2l:%-2v"
       end
     end,
   },
-  -- INFO: standalone/own window 
+  -- INFO: standalone/own window
   {
-    'mbbill/undotree',
+    "mbbill/undotree",
     config = function()
-      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+      vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
     end,
   },
   {
-    'stevearc/oil.nvim',
-    event = 'VeryLazy',
+    "stevearc/oil.nvim",
+    event = "VeryLazy",
     opts = {},
     -- Optional dependencies
-    dependencies = { { 'echasnovski/mini.icons', opts = {} } },
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   },
-  -- INFO: source control 
+  -- INFO: source control
   {
-    'lewis6991/gitsigns.nvim',
-    event = 'BufReadPre',
+    "lewis6991/gitsigns.nvim",
+    event = "BufReadPre",
     opts = {
       signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
+        add = { text = "+" },
+        change = { text = "~" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
       },
     },
   },
-  { 'ngemily/vim-vp4', event = 'VeryLazy' },
-  { 'motiongorilla/p4nvim', event = 'VeryLazy' },
-  -- INFO: treesitter 
+  { "ngemily/vim-vp4", event = "VeryLazy" },
+  { "motiongorilla/p4nvim", event = "VeryLazy" },
+  -- INFO: treesitter
   {
-    'nvim-treesitter/nvim-treesitter',
+    "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPre", "BufNewFile" },
-    branch = 'main',
-    build = ':TSUpdate',
+    branch = "main",
+    build = ":TSUpdate",
     config = function()
-      -- stylua: ignore
-      require('nvim-treesitter').install { 'bash', 'c_sharp', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'vim', 'vimdoc' }
+      require("nvim-treesitter").setup({
+				-- stylua: ignore
+				ensure_installed = { 'bash', 'c_sharp', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'razor' },
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+        indent = {
+          enable = true,
+        },
+      })
     end,
   },
   {
-    'nvim-treesitter/nvim-treesitter-textobjects',
+    "nvim-treesitter/nvim-treesitter-textobjects",
     event = { "BufReadPre", "BufNewFile" },
-    branch = 'main',
+    branch = "main",
   },
   {
-    'nvim-treesitter/nvim-treesitter-context',
+    "nvim-treesitter/nvim-treesitter-context",
     event = { "BufReadPre", "BufNewFile" },
     keys = {
       {
-        '[x',
+        "[x",
         function()
-          require('treesitter-context').go_to_context()
+          require("treesitter-context").go_to_context()
         end,
       },
     },
@@ -166,75 +184,79 @@ return
     -- dependencies = { { 'echasnovski/mini.icons', opts = {} } },
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   },
-  -- INFO: file type specific 
+  -- INFO: file type specific
   {
-    'hat0uma/csvview.nvim',
-    ft = 'csv',
+    "hat0uma/csvview.nvim",
+    ft = "csv",
     opts = {
-      parser = { comments = { '#', '//' } },
+      parser = { comments = { "#", "//" } },
       keymaps = {
-        textobject_field_inner = { 'if', mode = { 'o', 'x' } },
-        textobject_field_outer = { 'af', mode = { 'o', 'x' } },
+        textobject_field_inner = { "if", mode = { "o", "x" } },
+        textobject_field_outer = { "af", mode = { "o", "x" } },
         -- NOTE: In terminals, you may need to enable CSI-u mode to use <S-Tab> and <S-Enter>.
-        jump_next_field_end = { '<Tab>', mode = { 'n', 'v' } },
-        jump_prev_field_end = { '<S-Tab>', mode = { 'n', 'v' } },
-        jump_next_row = { '<Enter>', mode = { 'n', 'v' } },
-        jump_prev_row = { '<S-Enter>', mode = { 'n', 'v' } },
+        jump_next_field_end = { "<Tab>", mode = { "n", "v" } },
+        jump_prev_field_end = { "<S-Tab>", mode = { "n", "v" } },
+        jump_next_row = { "<Enter>", mode = { "n", "v" } },
+        jump_prev_row = { "<S-Enter>", mode = { "n", "v" } },
       },
     },
-    cmd = { 'CsvViewEnable', 'CsvViewDisable', 'CsvViewToggle' },
+    cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
   },
   {
-    'MeanderingProgrammer/render-markdown.nvim',
-    ft = { 'markdown', 'codecompanion', 'Avante' },
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "codecompanion", "Avante" },
     opts = {},
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- TODO: Check icons
+    dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- TODO: Check icons
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-icons' }, -- if you prefer nvim-web-devicons
   },
   -- INFO: language specific
-  { 'seblj/roslyn.nvim' },
   {
-    'GustavEikaas/easy-dotnet.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    ft = { 'cs', 'vb', 'csproj', 'sln' },
+    "seblj/roslyn.nvim",
+    opts = { filewatching = "roslyn" },
+  },
+  {
+    "GustavEikaas/easy-dotnet.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    ft = { "cs", "vb", "csproj", "sln" },
     config = function()
-      require('easy-dotnet').setup {
+      require("easy-dotnet").setup({
         lsp = {
           enabled = false,
         },
-      }
+      })
     end,
   },
-  { 'Issafalcon/lsp-overloads.nvim' },
-  { 'RobertCWebb/vim-jumpmethod' },
-  -- {
-    --   'khoido2003/roslyn-filewatch.nvim',
-    --   ft = 'cs',
-    --   config = function()
-      --     require('roslyn_filewatch').setup {
-        --       -- Optional: you can tell it to ignore heavy folders to keep it fast
-        --       ignore_dirs = { 'Library', 'Temp', 'Obj', 'Bin', '.git', '.idea', '.vs', '.godot', '.mono', 'node_modules' },
-        --     }
-        --   end,
-        -- },
+  { "Issafalcon/lsp-overloads.nvim" },
+  { "RobertCWebb/vim-jumpmethod" },
   {
-    'folke/which-key.nvim',
-    event = 'VeryLazy',
+    "khoido2003/roslyn-filewatch.nvim",
+    build = "nvim -l build.lua --",
+    event = "VeryLazy",
+    config = function()
+      require("roslyn_filewatch").setup({
+        ignore_dirs = { "Library", "Temp", "Obj", "Bin", ".git", ".idea", ".vs", ".godot", ".mono", "node_modules" },
+        enable_autorestore = false,
+      })
+    end,
+  },
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
     opts = {
       spec = {
-        { '<leader>c', group = '[C]ode' },
-        { '<leader>d', group = '[D]ocument' },
-        { '<leader>r', group = '[R]ename' },
-        { '<leader>s', group = '[S]earch' },
-        { '<leader>w', group = '[W]orkspace' },
-        { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } }, -- Combines both modes here
+        { "<leader>c", group = "[C]ode" },
+        { "<leader>d", group = "[D]ocument" },
+        { "<leader>r", group = "[R]ename" },
+        { "<leader>s", group = "[S]earch" },
+        { "<leader>w", group = "[W]orkspace" },
+        { "<leader>t", group = "[T]oggle" },
+        { "<leader>h", group = "Git [H]unk", mode = { "n", "v" } }, -- Combines both modes here
       },
     },
   },
   {
-    'folke/snacks.nvim',
+    "folke/snacks.nvim",
     opts = {
       picker = {},
     },
@@ -286,17 +308,17 @@ return
     },
   },
   {
-    'saghen/blink.cmp',
-    event = 'InsertEnter',
-    version = '1.*',
-    dependencies = { 'saghen/blink.nvim' },
+    "saghen/blink.cmp",
+    event = "InsertEnter",
+    version = "1.*",
+    dependencies = { "saghen/blink.nvim" },
     opts = {
       fuzzy = {
-        implementation = 'prefer_rust',
+        implementation = "prefer_rust",
       },
       keymap = {
-        preset = 'default',
-        ['<CR>'] = { 'select_and_accept', 'fallback' },
+        preset = "default",
+        ["<CR>"] = { "select_and_accept", "fallback" },
       },
       signature = {
         enabled = false,
@@ -307,22 +329,22 @@ return
         },
         menu = {
           auto_show = true,
-          direction_priority = { 's' },
+          direction_priority = { "s" },
           draw = {
             components = {
               kind_icon = {
                 text = function(ctx)
-                  local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
+                  local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
                   return kind_icon
                 end,
                 highlight = function(ctx)
-                  local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
+                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
                   return hl
                 end,
               },
               kind = {
                 highlight = function(ctx)
-                  local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
+                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
                   return hl
                 end,
               },
@@ -337,58 +359,57 @@ return
   },
   -- INFO: Themes
   -- {
-    --   'metalelf0/black-metal-theme-neovim',
-    --   lazy = false,
-    --   priority = 1000,
-    --   config = function()
-      --     require('black-metal').setup {
-        --       -- Can be one of: bathory | burzum | dark-funeral | darkthrone | emperor | gorgoroth | immortal | impaled-nazarene | khold | marduk | mayhem | nile | taake | thyrfing | venom | windir
-        --       theme = 'dark-funeral',
-        --       -- Can be one of: 'light' | 'dark', or set via vim.o.background
-        --       variant = 'dark',
-        --       -- Use an alternate, lighter bg
-        --       alt_bg = true,
-        --       -- variant = 'light',
-        --       -- optional configuration here
-        --     }
-        --     require('black-metal').load()
-        --     -- vim.cmd.colorscheme = 'burzam-alt'
-        --   end,
-        -- },
-  { 'rose-pine/neovim', name = 'rose-pine' },
+  --   'metalelf0/black-metal-theme-neovim',
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require('black-metal').setup {
+  --       -- Can be one of: bathory | burzum | dark-funeral | darkthrone | emperor | gorgoroth | immortal | impaled-nazarene | khold | marduk | mayhem | nile | taake | thyrfing | venom | windir
+  --       theme = 'dark-funeral',
+  --       -- Can be one of: 'light' | 'dark', or set via vim.o.background
+  --       variant = 'dark',
+  --       -- Use an alternate, lighter bg
+  --       alt_bg = true,
+  --       -- variant = 'light',
+  --       -- optional configuration here
+  --     }
+  --     require('black-metal').load()
+  --     -- vim.cmd.colorscheme = 'burzam-alt'
+  --   end,
+  -- },
+  { "rose-pine/neovim", name = "rose-pine" },
   {
-    'folke/tokyonight.nvim',
+    "folke/tokyonight.nvim",
     priority = 1000,
     opts = {
       on_highlights = function(hl, c)
         -- Make method parameters white
-        hl['@parameter'] = { fg = '#ffffff' }
-        hl['@variable.parameter'] = { fg = '#ffffff' }
+        hl["@parameter"] = { fg = "#ffffff" }
+        hl["@variable.parameter"] = { fg = "#ffffff" }
 
         -- Diagnostic underlines
-        hl['DiagnosticUnderlineError'] = { underline = true, sp = '#db4b4b' }
-        hl['DiagnosticUnderlineWarn'] = { underline = true, sp = '#e0af68' }
-        hl['DiagnosticUnderlineInfo'] = { underline = true, sp = '#0db9d7' }
-        hl['DiagnosticUnderlineHint'] = { underline = true, sp = '#10B981' }
+        hl["DiagnosticUnderlineError"] = { underline = true, sp = "#db4b4b" }
+        hl["DiagnosticUnderlineWarn"] = { underline = true, sp = "#e0af68" }
+        hl["DiagnosticUnderlineInfo"] = { underline = true, sp = "#0db9d7" }
+        hl["DiagnosticUnderlineHint"] = { underline = true, sp = "#10B981" }
       end,
     },
     init = function()
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme("tokyonight-night")
       -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
+      vim.cmd.hi("Comment gui=none")
     end,
   },
 
   -- { 'armannikoyan/rusty', name = 'rusty' },
   -- { 'AlexvZyl/nordic.nvim', name = 'nordic' },
   -- {
-    --   'oskarnurm/koda.nvim',
-    --   lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    --   priority = 1000, -- make sure to load this before all the other start plugins
-    --   config = function()
-      -- require("koda").setup({ transparent = true })
-      --     vim.cmd 'colorscheme koda'
-      --   end,
+  --   'oskarnurm/koda.nvim',
+  --   lazy = false, -- make sure we load this during startup if it is your main colorscheme
+  --   priority = 1000, -- make sure to load this before all the other start plugins
+  --   config = function()
+  -- require("koda").setup({ transparent = true })
+  --     vim.cmd 'colorscheme koda'
+  --   end,
   -- },
-
 }
