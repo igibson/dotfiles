@@ -84,7 +84,7 @@ local function setup_lsp(client, event)
   end
 
   if vim.lsp.codelens and vim.lsp.codelens.enable then
-    vim.lsp.codelens.enable(false, event.buf)
+    vim.lsp.codelens.enable(false, { bufnr = event.buf })
   end
 
   -- if vim.lsp.inlay_hint then
