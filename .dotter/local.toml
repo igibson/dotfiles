@@ -1,2 +1,5 @@
 includes = [".dotter/windows.toml"]
 packages = ["wezterm", "yazi", "neovim", "glazewm", "datagrip", "visualstudio"]
+
+[variables]
+profile = "work"

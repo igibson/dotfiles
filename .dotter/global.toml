@@ -1,5 +1,19 @@
 [wezterm.files]
 "config/wezterm/wezterm.lua" = "~/.config/wezterm/wezterm.lua"
+"config/wezterm/actions_pane.lua" = "~/.config/wezterm/actions_pane.lua"
+
+# Work Profile
+[wezterm.files."config/wezterm/profiles/work.lua"]
+target = "~/.config/wezterm/profile.lua"
+type = "symbolic"
+if = "(eq profile 'work')"
+
+# Home Profile
+[wezterm.files."config/wezterm/profiles/home.lua"]
+target = "~/.config/wezterm/profile.lua"
+type = "symbolic"
+if = "(eq profile 'home')"
+
 
 [neovim.files]
 "config/nvim" = "~/.config/nvim"
