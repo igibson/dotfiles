@@ -6,3 +6,9 @@ fzf
 jq
 gh
 tree-sitter
+ffmpeg
+7zip
+zoxide
+resvg
+imagemagick
+yazi

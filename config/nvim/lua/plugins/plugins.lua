@@ -141,6 +141,11 @@ return {
       },
     },
   },
+  {
+    "tpope/vim-fugitive",
+    event = "VeryLazy",
+    cmd = { "Git", "G", "Gdiffsplit", "Gread", "Gwrite" },
+  },
   { "ngemily/vim-vp4", event = "VeryLazy" },
   { "motiongorilla/p4nvim", event = "VeryLazy" },
   -- INFO: treesitter
