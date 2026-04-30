@@ -1,3 +1,21 @@
+--INFO: Enforce canonical paths for lsp roots to prevent mulitple LspAttach
+--for the same project, ensuer c:\dev\main is treated same as c:\Dev\Main
+-- local function canon(path)
+--   local real = vim.loop.fs_realpath(path) or path
+--   return vim.fs.normalize(real):lower()
+-- end
+--
+-- local orig_start = vim.lsp.start
+--
+-- vim.lsp.start = function(config, opts)
+--   if config and config.root_dir then
+--     config.root_dir = canon(config.root_dir)
+--     print("net lsp start")
+--   end
+--
+--   return orig_start(config, opts)
+-- end
+
 -- INFO: Custom handling for lsp overloads plugin
 local function lsp_overloads_jump_to_args_list_then_show()
   local ts = vim.treesitter
@@ -83,8 +101,9 @@ local function setup_lsp(client, event)
     })
   end
 
+  -- NEW CODE (compliant with 0.12)
   if vim.lsp.codelens and vim.lsp.codelens.enable then
-    vim.lsp.codelens.enable(false, event.buf)
+    vim.lsp.codelens.enable(false, { bufnr = event.buf })
   end
 
   -- if vim.lsp.inlay_hint then

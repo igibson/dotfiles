@@ -228,7 +228,7 @@ return {
     end,
   },
   { "Issafalcon/lsp-overloads.nvim" },
-  { "RobertCWebb/vim-jumpmethod" },
+  -- { "RobertCWebb/vim-jumpmethod" },
   {
     "khoido2003/roslyn-filewatch.nvim",
     build = "nvim -l build.lua --",
