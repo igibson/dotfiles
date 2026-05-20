@@ -177,10 +177,10 @@ local function lspAttach(event)
   end
 
   local bufnr = event.buf
-  if vim.bo[bufnr].filetype == "razor" then
-    vim.lsp.stop_client(client.id)
-    return
-  end
+  -- if vim.bo[bufnr].filetype == "razor" then
+  --   vim.lsp.stop_client(client.id)
+  --   return
+  -- end
 
   setup_lsp(client, event)
   setup_lsp_overloads(client, event)
@@ -206,8 +206,14 @@ return {
       settings = { Lua = { completion = { callSnippet = "Replace" } } },
     })
 
-    vim.lsp.config("roslyn", {
+    vim.lsp.enable("roslyn_ls")
+    vim.lsp.config("roslyn_ls", {
+      filetypes = { "razor", "cs" },
       settings = {
+        ["csharp|background_analysis"] = {
+          dotnet_analyzer_diagnostics_scope = "openFiles",
+          dotnet_compiler_diagnostics_scope = "openFiles",
+        },
         ["csharp|inlay_hints"] = {
           csharp_enable_inlay_hints_for_implicit_object_creation = true,
           csharp_enable_inlay_hints_for_implicit_variable_types = true,
@@ -234,7 +240,7 @@ return {
 
     require("mason-lspconfig").setup()
     require("mason-tool-installer").setup({
-      ensure_installed = { "lua_ls", "roslyn", "stylua" },
+      ensure_installed = { "lua_ls", "stylua" },
     })
   end,
 }

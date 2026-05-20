@@ -156,8 +156,8 @@ return {
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter").setup({
-				-- stylua: ignore
-				ensure_installed = { 'bash', 'c_sharp', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'razor' },
+        -- stylua: ignore
+        ensure_installed = { 'bash', 'c_sharp', 'c', 'css', 'diff', 'html', 'javascript', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'razor' },
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
@@ -215,11 +215,11 @@ return {
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-icons' }, -- if you prefer nvim-web-devicons
   },
-  -- INFO: language specific
-  {
-    "seblj/roslyn.nvim",
-    opts = { filewatching = "roslyn" },
-  },
+  -- -- INFO: language specific
+  -- {
+  --   "seblj/roslyn.nvim",
+  --   opts = { filewatching = "roslyn" },
+  -- },
   {
     "GustavEikaas/easy-dotnet.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
