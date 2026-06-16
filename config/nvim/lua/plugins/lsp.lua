@@ -1,3 +1,21 @@
+--INFO: Enforce canonical paths for lsp roots to prevent mulitple LspAttach
+--for the same project, ensuer c:\dev\main is treated same as c:\Dev\Main
+-- local function canon(path)
+--   local real = vim.loop.fs_realpath(path) or path
+--   return vim.fs.normalize(real):lower()
+-- end
+--
+-- local orig_start = vim.lsp.start
+--
+-- vim.lsp.start = function(config, opts)
+--   if config and config.root_dir then
+--     config.root_dir = canon(config.root_dir)
+--     print("net lsp start")
+--   end
+--
+--   return orig_start(config, opts)
+-- end
+
 -- INFO: Custom handling for lsp overloads plugin
 local function lsp_overloads_jump_to_args_list_then_show()
   local ts = vim.treesitter
@@ -83,6 +101,7 @@ local function setup_lsp(client, event)
     })
   end
 
+  -- NEW CODE (compliant with 0.12)
   if vim.lsp.codelens and vim.lsp.codelens.enable then
     vim.lsp.codelens.enable(false, { bufnr = event.buf })
   end
@@ -158,10 +177,10 @@ local function lspAttach(event)
   end
 
   local bufnr = event.buf
-  if vim.bo[bufnr].filetype == "razor" then
-    vim.lsp.stop_client(client.id)
-    return
-  end
+  -- if vim.bo[bufnr].filetype == "razor" then
+  --   vim.lsp.stop_client(client.id)
+  --   return
+  -- end
 
   setup_lsp(client, event)
   setup_lsp_overloads(client, event)
@@ -187,8 +206,14 @@ return {
       settings = { Lua = { completion = { callSnippet = "Replace" } } },
     })
 
-    vim.lsp.config("roslyn", {
+    vim.lsp.enable("roslyn_ls")
+    vim.lsp.config("roslyn_ls", {
+      filetypes = { "razor", "cs" },
       settings = {
+        ["csharp|background_analysis"] = {
+          dotnet_analyzer_diagnostics_scope = "openFiles",
+          dotnet_compiler_diagnostics_scope = "openFiles",
+        },
         ["csharp|inlay_hints"] = {
           csharp_enable_inlay_hints_for_implicit_object_creation = true,
           csharp_enable_inlay_hints_for_implicit_variable_types = true,
@@ -215,7 +240,7 @@ return {
 
     require("mason-lspconfig").setup()
     require("mason-tool-installer").setup({
-      ensure_installed = { "lua_ls", "roslyn", "stylua" },
+      ensure_installed = { "lua_ls", "stylua" },
     })
   end,
 }
