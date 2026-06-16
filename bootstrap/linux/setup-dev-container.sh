@@ -16,10 +16,11 @@ if ! command -v yazi &> /dev/null; then
     rm -rf /tmp/yazi.zip /tmp/yazi-extract
 fi
 
-# 2. Dotter Deployment (Fetches the compiled single executable instantly)
-if ! command -v dotter &> /dev/null; then
-    echo "📥 Installing Dotter deployment engine..."
-    curl -L "https://github.com/SuperCuber/dotter/releases/latest/download/dotter-x86_64-unknown-linux-musl" -o "$HOME/.local/bin/dotter"
+# 2. Dotter Deployment (Strict file contents validation check)
+if [ ! -f "$HOME/.local/bin/dotter" ] || grep -q "Not Found" "$HOME/.local/bin/dotter"; then
+    echo "📥 Installing pristine Dotter deployment engine..."
+    mkdir -p "$HOME/.local/bin"
+    curl -L "https://github.com/SuperCuber/dotter/releases/download/v0.13.4/dotter-linux-x64-musl" -o "$HOME/.local/bin/dotter"
     chmod +x "$HOME/.local/bin/dotter"
 fi
 
