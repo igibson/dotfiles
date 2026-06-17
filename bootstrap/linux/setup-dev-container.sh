@@ -37,6 +37,6 @@ echo "⚙️  Overwriting local profile mappings..."
 cp "$DOTFILES_ROOT/.dotter/local-cloud-linux.toml" "$DOTFILES_ROOT/.dotter/local.toml"
 
 echo "🚀 Deploying Symlinks via Dotter..."
-dotter deploy --local-config dotter.toml
+dotter deploy 
 
 echo "✨ Cloud workspace initialization fully complete!"
