@@ -34,7 +34,7 @@ DOTFILES_ROOT="$(cd "$SCRIPT_DIR/../../" && pwd)"
 cd "$DOTFILES_ROOT"
 
 echo "⚙️  Overwriting local profile mappings..."
-cp "$DOTFILES_ROOT/.dotter/cloud-linux.toml" "$DOTFILES_ROOT/.dotter/local.toml"
+cp "$DOTFILES_ROOT/.dotter/local-cloud-linux.toml" "$DOTFILES_ROOT/.dotter/local.toml"
 
 echo "🚀 Deploying Symlinks via Dotter..."
 dotter deploy --local-config dotter.toml
