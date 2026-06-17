@@ -5,7 +5,23 @@ set -e
 export PATH="$HOME/.local/bin:$PATH"
 mkdir -p "$HOME/.local/bin"
 
-echo "☁️  Dev Container detected. Executing runtime configurations..."
+echo "📦 Installing core system dependencies via apt..."
+# These are essential system packages, media decoders, and compilers
+sudo apt-get update && sudo apt-get install -y \
+    build-essential \
+    curl \
+    git \
+    unzip \
+    p7zip-full \
+    jq \
+    ffmpeg \
+    imagemagick \
+    fzf \
+    ripgrep \
+    clang \
+    ca-certificates \
+    docker.io
+
 
 # 1. Yazi Deployment (Fetches the pre-compiled binary instantly)
 if ! command -v yazi &> /dev/null; then
@@ -15,6 +31,33 @@ if ! command -v yazi &> /dev/null; then
     mv /tmp/yazi-extract/yazi-*/yazi /tmp/yazi-extract/yazi-*/ya "$HOME/.local/bin/"
     rm -rf /tmp/yazi.zip /tmp/yazi-extract
 fi
+
+
+echo "Installing latest Neovim..."
+
+NVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
+TMP_DIR="/tmp/nvim-install"
+INSTALL_DIR="/opt/nvim"
+
+rm -rf "$TMP_DIR"
+mkdir -p "$TMP_DIR"
+
+echo "Downloading Neovim..."
+curl -L "$NVIM_URL" -o "$TMP_DIR/nvim.tar.gz"
+
+echo "Extracting..."
+tar -xzf "$TMP_DIR/nvim.tar.gz" -C "$TMP_DIR"
+
+echo "Installing..."
+sudo rm -rf "$INSTALL_DIR"
+sudo mv "$TMP_DIR"/nvim-linux-x86_64 "$INSTALL_DIR"
+
+echo "Creating symlink..."
+sudo ln -sf "$INSTALL_DIR/bin/nvim" /usr/local/bin/nvim
+
+echo "Cleaning up..."
+rm -rf "$TMP_DIR"
+
 
 # 2. Dotter Deployment (Strict file contents validation check)
 if [ ! -f "$HOME/.local/bin/dotter" ] || grep -q "Not Found" "$HOME/.local/bin/dotter"; then
