@@ -1,0 +1,5 @@
+includes = [".dotter/linux.toml"]
+packages = ["neovim", "yazi"]
+
+[variables]
+profile = "home"

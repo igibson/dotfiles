@@ -1,8 +1,0 @@
-# bootstrap/linux/local-linux.toml
-includes = []
-
-# Excludes WezTerm, GlazeWM, DataGrip, etc., from installing in the cloud
-packages = ["neovim", "yazi"]
-
-[variables]
-profile = "home"
