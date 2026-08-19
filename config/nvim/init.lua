@@ -7,23 +7,6 @@ require("keymaps")
 require("commands")
 
 -- [[ Basic Autocommands ]]
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "cs",
-  callback = function()
-    vim.schedule(function()
-      vim.keymap.set("n", "<leader>b", function()
-        require("easy-dotnet").build_default_quickfix()
-      end)
-    end)
-  end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "razor",
-  callback = function()
-    vim.treesitter.start()
-  end,
-})
 -- annoying until can move the box
 -- vim.api.nvim_create_autocmd('CursorHold', {
 --   callback = function()

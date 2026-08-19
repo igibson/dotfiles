@@ -151,23 +151,48 @@ return {
   -- INFO: treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPre", "BufNewFile" },
     branch = "main",
+    lazy = false,
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter").setup({
-        -- stylua: ignore
-        ensure_installed = { 'bash', 'c_sharp', 'c', 'css', 'diff', 'html', 'javascript', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'razor' },
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-        },
-        indent = {
-          enable = true,
-        },
+      require("nvim-treesitter").install({
+        "bash",
+        "c",
+        "c_sharp",
+        "css",
+        "diff",
+        "html",
+        "javascript",
+        "lua",
+        "luadoc",
+        "markdown",
+        "markdown_inline",
+        "vim",
+        "vimdoc",
+        "razor",
       })
     end,
   },
+  --
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   event = { "BufReadPre", "BufNewFile" },
+  --   branch = "main",
+  --   build = ":TSUpdate",
+  --   config = function()
+  --     require("nvim-treesitter").setup({
+  --       -- stylua: ignore
+  --       ensure_installed = { 'bash', 'c_sharp', 'c', 'css', 'diff', 'html', 'javascript', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'razor' },
+  --       highlight = {
+  --         enable = true,
+  --         additional_vim_regex_highlighting = false,
+  --       },
+  --       indent = {
+  --         enable = true,
+  --       },
+  --     })
+  --   end,
+  -- },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     event = { "BufReadPre", "BufNewFile" },
@@ -184,7 +209,9 @@ return {
         end,
       },
     },
-    opts = {},
+    opts = {
+      multiline_threshold = 4,
+    },
     -- Optional dependencies
     -- dependencies = { { 'echasnovski/mini.icons', opts = {} } },
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
@@ -216,20 +243,11 @@ return {
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-icons' }, -- if you prefer nvim-web-devicons
   },
   -- -- INFO: language specific
-  -- {
-  --   "seblj/roslyn.nvim",
-  --   opts = { filewatching = "roslyn" },
-  -- },
   {
     "GustavEikaas/easy-dotnet.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    ft = { "cs", "vb", "csproj", "sln" },
+    dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim" },
     config = function()
-      require("easy-dotnet").setup({
-        lsp = {
-          enabled = false,
-        },
-      })
+      require("easy-dotnet").setup()
     end,
   },
   { "Issafalcon/lsp-overloads.nvim" },
@@ -244,6 +262,18 @@ return {
         enable_autorestore = false,
       })
     end,
+  },
+  {
+    "esmuellert/codediff.nvim",
+    cmd = "CodeDiff",
+
+    keys = {
+      {
+        "<leader>gd",
+        "<cmd>CodeDiff<CR>",
+        desc = "Open CodeDiff",
+      },
+    },
   },
   {
     "folke/which-key.nvim",
