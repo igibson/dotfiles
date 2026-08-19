@@ -11,7 +11,15 @@ return {
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    config = true,
+    opts = {
+      check_ts = true,
+    },
+    config = function(_, opts)
+      local npairs = require("nvim-autopairs")
+      npairs.setup(opts)
+      npairs.remove_rule('"')
+      npairs.remove_rule("'")
+    end,
   },
   {
     "kwkarlwang/bufjump.nvim",
@@ -19,6 +27,8 @@ return {
       require("bufjump").setup({
         forward_key = "<Tab>",
         backward_key = "<s-Tab>",
+        forward_same_buf_key = "<F13>",
+        backward_same_buf_key = "<C-o>",
       })
     end,
   },
@@ -250,7 +260,27 @@ return {
       require("easy-dotnet").setup()
     end,
   },
-  { "Issafalcon/lsp-overloads.nvim" },
+  {
+    "Issafalcon/lsp-overloads.nvim",
+    opts = {
+      ui = {
+        border = "single",
+        floating_window_above_cur_line = false,
+        offset_x = 0,
+        offset_y = 0,
+        max_height = 10,
+        max_width = 400,
+        wrap = true,
+      },
+      keymaps = {
+        next_signature = "<C-j>",
+        previous_signature = "<C-k>",
+        next_parameter = "<C-l>",
+        previous_parameter = "<C-h>",
+        close_signature = "<C-e>",
+      },
+    },
+  },
   -- { "RobertCWebb/vim-jumpmethod" },
   {
     "khoido2003/roslyn-filewatch.nvim",
