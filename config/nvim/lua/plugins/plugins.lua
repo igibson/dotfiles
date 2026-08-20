@@ -252,10 +252,69 @@ return {
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-icons' }, -- if you prefer nvim-web-devicons
   },
-  -- -- INFO: language specific
+  -- INFO: Code
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = {
+      "mason-org/mason.nvim",
+    },
+    opts = {
+      ensure_installed = {
+        "lua-language-server",
+        "stylua",
+        "netcoredbg",
+      },
+      run_on_start = false,
+    },
+    config = function(_, opts)
+      require("mason-tool-installer").setup(opts)
+
+      -- delay execution until registry is ready
+      vim.defer_fn(function()
+        require("mason-tool-installer").run_on_start()
+      end, 2000)
+    end,
+  },
+  {
+    -- Call hierarchy
+    "retran/meow.yarn.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    config = function()
+      require("meow.yarn").setup({
+        -- Your custom configuration goes here
+      })
+    end,
+  },
+  -- INFO: language specific
   {
     "GustavEikaas/easy-dotnet.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "mfussenegger/nvim-dap",
+      {
+        "rcarriga/nvim-dap-ui",
+        dependencies = { "nvim-neotest/nvim-nio" }, -- required by dap-ui
+        config = function()
+          local dap, dapui = require("dap"), require("dapui")
+          dapui.setup()
+          dap.listeners.after.event_initialized["dapui_config"] = function()
+            dapui.open()
+          end
+          dap.listeners.before.event_terminated["dapui_config"] = function()
+            dapui.close()
+          end
+          dap.listeners.before.event_exited["dapui_config"] = function()
+            dapui.close()
+          end
+
+          vim.keymap.set("n", "<F5>", dap.continue)
+          vim.keymap.set("n", "<F10>", dap.step_over)
+          vim.keymap.set("n", "<F11>", dap.step_into)
+          vim.keymap.set("n", "<F12>", dap.step_out)
+          vim.keymap.set("n", "<F9>", dap.toggle_breakpoint)
+        end,
+      },
+    },
     config = function()
       require("easy-dotnet").setup()
     end,
@@ -278,7 +337,11 @@ return {
         next_parameter = "<C-l>",
         previous_parameter = "<C-h>",
         close_signature = "<C-e>",
+        scroll_down = "<PageDown>",
+        scroll_up = "<PageUp>",
       },
+      display_automatically = true,
+      override_native_handler = true,
     },
   },
   -- { "RobertCWebb/vim-jumpmethod" },
@@ -384,6 +447,16 @@ return {
       keymap = {
         preset = "default",
         ["<CR>"] = { "select_and_accept", "fallback" },
+        ["<PageUp>"] = {
+          function(cmp)
+            cmp.select_prev({ count = 7 })
+          end,
+        },
+        ["<PageDown>"] = {
+          function(cmp)
+            cmp.select_next({ count = 7 })
+          end,
+        },
       },
       signature = {
         enabled = false,

@@ -1,5 +1,3 @@
---INFO: Enforce canonical paths for lsp roots to prevent mulitple LspAttach
-
 -- INFO: LSP configuration functions
 local function setup_lsp(client, event)
   if client.server_capabilities.documentHighlightProvider then
@@ -73,7 +71,6 @@ return {
   dependencies = {
     "mason-org/mason.nvim",
     "mason-org/mason-lspconfig.nvim",
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
     "saghen/blink.nvim",
     -- 'folke/snacks.nvim',
     { "folke/lazydev.nvim", ft = "lua", opts = {} },
@@ -92,9 +89,7 @@ return {
       },
     })
 
+    require("mason").setup()
     require("mason-lspconfig").setup()
-    require("mason-tool-installer").setup({
-      ensure_installed = { "lua_ls", "stylua" },
-    })
   end,
 }

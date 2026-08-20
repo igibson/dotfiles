@@ -6,7 +6,8 @@ set ignorecase
 set smartcase
 set incsearch
 
-map <leader>e vip<Action>(Console.Jdbc.Execute)<Esc>$
+"map <leader>e vip<Action>(Console.Jdbc.Execute)<Esc>$
+map <leader>e mzvip<Action>(Console.Jdbc.Execute)<Esc>`zzz
 map <leader>ds vip<Action>(Console.Jdbc.ChooseDataSource)<Esc>$
 "nnoremap <Space>d "_d
 "vnoremap <Space>d "_d
