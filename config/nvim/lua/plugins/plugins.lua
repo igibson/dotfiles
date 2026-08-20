@@ -307,16 +307,68 @@ return {
             dapui.close()
           end
 
+          vim.fn.sign_define("DapStopped", {
+            text = "→",
+            texthl = "DapStopped",
+            linehl = "DapStoppedLine",
+            numhl = "DapStopped",
+          })
+
+          vim.fn.sign_define("DapBreakpoint", {
+            text = "●",
+            texthl = "DapBreakpoint",
+            numhl = "DapBreakpoint",
+          })
+
           vim.keymap.set("n", "<F5>", dap.continue)
           vim.keymap.set("n", "<F10>", dap.step_over)
           vim.keymap.set("n", "<F11>", dap.step_into)
           vim.keymap.set("n", "<F12>", dap.step_out)
           vim.keymap.set("n", "<F9>", dap.toggle_breakpoint)
+
+          dap.listeners.after.event_stopped["fix_netcoredbg_threads"] = function(session)
+            if session and session.threads then
+              for _, thread in pairs(session.threads) do
+                -- Force thread stopped flag so dapui's filter doesn't discard it
+                thread.stopped = true
+              end
+            end
+            dapui.open()
+          end
+
+          local function focus_dap_window(filetype)
+            for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+              local buf = vim.api.nvim_win_get_buf(win)
+              if vim.bo[buf].filetype == filetype then
+                vim.api.nvim_set_current_win(win)
+                return
+              end
+            end
+            print("DAP window '" .. filetype .. "' not found.")
+          end
+
+          -- Keymaps to jump directly to specific DAP panels
+          vim.keymap.set("n", "<leader>ds", function()
+            focus_dap_window("dapui_stacks")
+          end, { desc = "Focus Stack" })
+          vim.keymap.set("n", "<leader>dl", function()
+            focus_dap_window("dapui_scopes")
+          end, { desc = "Focus Locals" })
+          vim.keymap.set("n", "<leader>db", function()
+            focus_dap_window("dapui_breakpoints")
+          end, { desc = "Focus Breakpoints" })
+          vim.keymap.set("n", "<leader>dr", function()
+            focus_dap_window("dapui_console")
+          end, { desc = "Focus REPL/Console" })
         end,
       },
     },
     config = function()
-      require("easy-dotnet").setup()
+      require("easy-dotnet").setup({
+        lsp = {
+          auto_refresh_codelens = false,
+        },
+      })
     end,
   },
   {
@@ -530,6 +582,25 @@ return {
         hl["DiagnosticUnderlineWarn"] = { underline = true, sp = "#e0af68" }
         hl["DiagnosticUnderlineInfo"] = { underline = true, sp = "#0db9d7" }
         hl["DiagnosticUnderlineHint"] = { underline = true, sp = "#10B981" }
+
+        -- DAP breakpoint
+        hl["DapBreakpoint"] = {
+          fg = "#ff4d6d",
+          bg = "#4a1f2a",
+          bold = true,
+        }
+
+        -- DAP currently executing location
+        hl["DapStopped"] = {
+          fg = "#ffb86c",
+          bg = "#5a3d18",
+          bold = true,
+        }
+
+        -- Entire currently executing line
+        hl["DapStoppedLine"] = {
+          bg = "#3a321d",
+        }
       end,
     },
     init = function()
